@@ -61,7 +61,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
           ...item,
           completed: nextState,
           completedAt: nextState
-            ? new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            ? new Date().toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' })
             : undefined,
         };
       }
@@ -131,7 +131,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
   const handleAddFillableTable = () => {
     playZenChime('bamboo-wood');
     const newTable: RoutineTable = {
-      headers: ['Item / Step', 'Details', 'Notes'],
+      headers: ['Uppgift / Steg', 'Detaljer', 'Anteckningar'],
       rows: [
         { id: `r-${Date.now()}-1`, cells: ['', '', ''], done: false },
         { id: `r-${Date.now()}-2`, cells: ['', '', ''], done: false },
@@ -201,7 +201,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
     if (!list.table) return;
     playZenChime('bamboo-wood');
     const nextColNum = list.table.headers.length + 1;
-    const newHeaders = [...list.table.headers, `Column ${nextColNum}`];
+    const newHeaders = [...list.table.headers, `Kolumn ${nextColNum}`];
     const updatedRows = list.table.rows.map((row) => ({
       ...row,
       cells: [...row.cells, ''],
@@ -248,14 +248,14 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
           className="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/80 hover:bg-white text-[#3A4540] shadow-2xs border border-[#CCD4CA] transition-all active:scale-95 text-xs font-medium"
         >
           <ChevronLeft size={18} strokeWidth={2.2} />
-          <span>Back to All Routines</span>
+          <span>Tillbaka till alla rutiner</span>
         </button>
 
         <div className="flex items-center gap-2">
           {!list.isPrivate && (
             <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/70 border border-[#CCD4CA] text-xs text-[#526356]">
               <Users size={13} />
-              <span>Shared Routine</span>
+              <span>Delad rutin</span>
             </div>
           )}
 
@@ -264,7 +264,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
             <button
               onClick={onOpenShareModal}
               className="flex items-center gap-1.5 text-xs font-medium text-[#3A4540] hover:text-[#2A6E3F] transition-colors px-1"
-              title="Share routine or invite partner"
+              title="Dela rutin eller bjud in partner"
             >
               <svg
                 width="16"
@@ -280,7 +280,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
                 <polyline points="16 6 12 2 8 6" />
                 <line x1="12" y1="2" x2="12" y2="15" />
               </svg>
-              <span>Share</span>
+              <span>Dela</span>
             </button>
 
             <span className="text-[#C4CDC3]">|</span>
@@ -288,8 +288,8 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
             <button
               onClick={() => setShowDeleteConfirm(true)}
               className="text-[#3A4540] hover:text-[#9B3D44] transition-colors p-1"
-              title="Delete this list"
-              aria-label="Delete list"
+              title="Ta bort denna lista"
+              aria-label="Ta bort lista"
             >
               <Trash2 size={16} strokeWidth={1.8} />
             </button>
@@ -301,16 +301,16 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
       {showDeleteConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
           <div className="w-full max-w-sm rounded-3xl bg-[#F5F7F3] p-6 shadow-2xl border-2 border-[#9CAD9E] text-center">
-            <h4 className="text-base font-semibold text-[#2D3748]">Delete "{list.title}"?</h4>
+            <h4 className="text-base font-semibold text-[#2D3748]">Ta bort "{list.title}"?</h4>
             <p className="mt-1.5 text-xs text-[#6B7870] leading-relaxed">
-              Are you sure you want to remove this routine and its tasks? This action cannot be undone.
+              Är du säker på att du vill ta bort denna rutin och dess uppgifter? Denna åtgärd kan inte ångras.
             </p>
             <div className="mt-5 flex gap-2.5 justify-center">
               <button
                 onClick={() => setShowDeleteConfirm(false)}
                 className="px-4 py-2 rounded-xl bg-[#E1E5DF] text-xs font-medium text-[#4A5568] hover:bg-[#D4DAD1] transition-colors"
               >
-                Cancel
+                Avbryt
               </button>
               <button
                 onClick={() => {
@@ -319,7 +319,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
                 }}
                 className="px-4 py-2 rounded-xl bg-[#B85E65] text-white text-xs font-medium hover:bg-[#A34F56] transition-colors"
               >
-                Delete List
+                Ta bort lista
               </button>
             </div>
           </div>
@@ -346,7 +346,18 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
                 {list.title}
               </h1>
               <p className="text-xs text-[#718175] mt-0.5">
-                {list.category.charAt(0).toUpperCase() + list.category.slice(1)} · Created for calm focus
+                {list.category === 'routine'
+                  ? 'Rutin'
+                  : list.category === 'school'
+                  ? 'Skola'
+                  : list.category === 'work'
+                  ? 'Jobb'
+                  : list.category === 'home'
+                  ? 'Hemma'
+                  : list.category === 'health'
+                  ? 'Hälsa'
+                  : 'Kreativt'}{' '}
+                · Skapad för lugnt fokus
               </p>
             </div>
           </div>
@@ -358,8 +369,8 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
         {/* Active / Uncompleted Items */}
         <div className="space-y-3.5 pt-6">
           <div className="flex items-center justify-between text-xs text-[#6F7D73] font-medium pb-1">
-            <span>Routines & Tasks to complete:</span>
-            <span>{activeItems.length} remaining</span>
+            <span>Uppgifter att göra:</span>
+            <span>{activeItems.length} kvar</span>
           </div>
 
           {activeItems.map((task, idx) => (
@@ -370,7 +381,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
               <div className="flex items-center gap-3.5 flex-1 min-w-0">
                 {/* 3-dots drag handle */}
                 <div className="flex items-center text-[#4A5568] opacity-70 group-hover:opacity-100">
-                  <div className="flex flex-col gap-[3px] py-1 cursor-grab" title="Reorder routine item">
+                  <div className="flex flex-col gap-[3px] py-1 cursor-grab" title="Ändra ordning">
                     <span className="w-1 h-1 rounded-full bg-[#3D4741]" />
                     <span className="w-1 h-1 rounded-full bg-[#3D4741]" />
                     <span className="w-1 h-1 rounded-full bg-[#3D4741]" />
@@ -381,7 +392,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
                       onClick={() => handleMoveItem(idx, 'up')}
                       disabled={idx === 0}
                       className="text-[#7A8880] hover:text-[#2D3748] disabled:opacity-20"
-                      title="Move up"
+                      title="Flytta uppåt"
                     >
                       <ChevronUp size={12} />
                     </button>
@@ -389,7 +400,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
                       onClick={() => handleMoveItem(idx, 'down')}
                       disabled={idx === activeItems.length - 1}
                       className="text-[#7A8880] hover:text-[#2D3748] disabled:opacity-20"
-                      title="Move down"
+                      title="Flytta nedåt"
                     >
                       <ChevronDown size={12} />
                     </button>
@@ -400,7 +411,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
                 <button
                   onClick={() => handleToggleTask(task)}
                   className="w-5 h-5 rounded-[4px] border-2 border-[#333D37] flex items-center justify-center shrink-0 hover:border-[#8CA390] hover:bg-[#8CA390]/10 transition-colors"
-                  aria-label={`Complete ${task.text}`}
+                  aria-label={`Bocka av ${task.text}`}
                 >
                   {/* Empty state */}
                 </button>
@@ -411,12 +422,12 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
                 </span>
               </div>
 
-              {/* Task Timer Icon on right (Stopwatch / Alarm Clock matching screenshot 2) */}
+              {/* Task Timer Icon on right */}
               <button
                 onClick={() => onOpenTimerModal(task)}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-[#3D4741] hover:bg-[#8CA390]/15 hover:text-[#24352A] transition-colors text-xs font-medium"
-                title={`Start focus timer for "${task.text}"`}
-                aria-label="Start timer"
+                title={`Starta fokus-timer för "${task.text}"`}
+                aria-label="Starta timer"
               >
                 <svg
                   width="18"
@@ -442,29 +453,29 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
           {activeItems.length === 0 && (
             <div className="py-6 text-center rounded-2xl bg-white/40 border border-[#DEE3DC]">
               <p className="text-sm text-[#6C7C71]">
-                All tasks are checked off for today. You've cultivated your routine. 🌱
+                Alla uppgifter är avklarade för idag. Andas ut och njut av din närvaro. 🌱
               </p>
             </div>
           )}
         </div>
 
-        {/* Action buttons: "+ List item" and "⊞ Add table" */}
-        <div className="mt-6 pt-3 space-y-3">
+        {/* Action buttons: "List item" ("Ny punkt") and option directly under it for "Add a table" ("Lägg till tabell") */}
+        <div className="mt-6 pt-3 space-y-2">
           {isAddingItem ? (
             <form onSubmit={handleAddItem} className="flex items-center gap-2.5 animate-fadeIn">
               <input
                 type="text"
                 autoFocus
-                placeholder="What mindful step would you like to add?"
+                placeholder="Vad vill du lägga till i din rutin?"
                 value={newItemText}
                 onChange={(e) => setNewItemText(e.target.value)}
-                className="flex-1 px-4 py-2.5 text-sm bg-white rounded-2xl border border-[#CCD3CB] focus:outline-hidden focus:border-[#8CA390] shadow-2xs"
+                className="flex-1 px-4 py-2.5 text-sm bg-white rounded-2xl border border-[#CCD3CB] focus:outline-hidden focus:border-[#8CA390] shadow-2xs text-[#2D3748]"
               />
               <button
                 type="submit"
                 className="px-4 py-2.5 bg-[#8CA390] text-white rounded-2xl text-xs font-medium hover:bg-[#788E7C] shadow-2xs"
               >
-                Add Item
+                Lägg till
               </button>
               <button
                 type="button"
@@ -475,35 +486,35 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
               </button>
             </form>
           ) : (
-            <div className="flex flex-wrap items-center gap-4">
-              <button
-                onClick={() => setIsAddingItem(true)}
-                className="flex items-center gap-2.5 text-base text-[#2E3732] hover:text-[#1F2722] py-1.5 px-2 rounded-xl hover:bg-black/5 transition-colors group"
-              >
-                <Plus size={20} strokeWidth={2.2} className="text-[#333D37] group-hover:scale-110 transition-transform" />
-                <span className="font-medium">List item</span>
-              </button>
+            <button
+              onClick={() => setIsAddingItem(true)}
+              className="flex items-center gap-3 text-base text-[#2E3732] hover:text-[#1F2722] py-1.5 px-2 rounded-xl hover:bg-black/5 transition-colors group"
+            >
+              <Plus size={20} strokeWidth={2.2} className="text-[#333D37] group-hover:scale-110 transition-transform" />
+              <span className="font-medium">Ny punkt</span>
+            </button>
+          )}
 
-              {!list.table && (
-                <button
-                  type="button"
-                  onClick={handleAddFillableTable}
-                  className="flex items-center gap-2.5 text-base text-[#2E3732] hover:text-[#1F2722] py-1.5 px-2 rounded-xl hover:bg-black/5 transition-colors group"
-                >
-                  <div className="w-5 h-5 border-2 border-[#333D37] rounded-[3px] grid grid-cols-2 grid-rows-2 p-[1px] gap-[1px]">
-                    <span className="bg-[#333D37]" />
-                    <span className="bg-[#333D37]" />
-                    <span className="bg-[#333D37]" />
-                    <span className="bg-[#333D37]" />
-                  </div>
-                  <span className="font-medium">Add table</span>
-                </button>
-              )}
-            </div>
+          {/* "Add a table" option directly under "List item", visually matching it identically */}
+          {!list.table && (
+            <button
+              type="button"
+              onClick={handleAddFillableTable}
+              className="flex items-center gap-3 text-base text-[#2E3732] hover:text-[#1F2722] py-1.5 px-2 rounded-xl hover:bg-black/5 transition-colors group"
+            >
+              {/* Grid 4-quadrant table icon matching screenshot */}
+              <div className="w-5 h-5 border-2 border-[#333D37] rounded-[3px] grid grid-cols-2 grid-rows-2 p-[1px] gap-[1px]">
+                <span className="bg-[#333D37]" />
+                <span className="bg-[#333D37]" />
+                <span className="bg-[#333D37]" />
+                <span className="bg-[#333D37]" />
+              </div>
+              <span className="font-medium">Lägg till tabell</span>
+            </button>
           )}
         </div>
 
-        {/* Simple Fillable Table (Added when user clicks "Add table") */}
+        {/* Simple Fillable Table: Opens ONLY when "Lägg till tabell" is clicked */}
         {list.table && (
           <div className="mt-6 p-4 md:p-5 rounded-3xl bg-white/80 border border-[#DEE3DC] shadow-2xs animate-fadeIn">
             {/* Table Header Controls */}
@@ -516,7 +527,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
                   <span className="bg-[#5A6E60]" />
                 </div>
                 <span className="text-xs font-semibold text-[#48554D] uppercase tracking-wider">
-                  Fillable Table
+                  Ifyllbar tabell
                 </span>
               </div>
 
@@ -525,27 +536,27 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
                   type="button"
                   onClick={handleAddTableColumn}
                   className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white text-[11px] font-medium text-[#465E4E] border border-[#CCD4CA] hover:bg-[#F3F5F1] transition-colors shadow-2xs"
-                  title="Add a new column"
+                  title="Lägg till en ny kolumn"
                 >
                   <Plus size={12} />
-                  <span>Column</span>
+                  <span>Kolumn</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={handleAddTableRow}
                   className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white text-[11px] font-medium text-[#465E4E] border border-[#CCD4CA] hover:bg-[#F3F5F1] transition-colors shadow-2xs"
-                  title="Add a new row"
+                  title="Lägg till en ny rad"
                 >
                   <Plus size={12} />
-                  <span>Row</span>
+                  <span>Rad</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={handleRemoveTable}
                   className="p-1.5 rounded-lg text-[#994D53] hover:bg-[#B85E65]/10 transition-colors ml-1"
-                  title="Remove table"
+                  title="Ta bort tabellen"
                 >
                   <Trash2 size={14} />
                 </button>
@@ -563,7 +574,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
                           type="text"
                           value={h}
                           onChange={(e) => handleUpdateHeader(i, e.target.value)}
-                          placeholder={`Column ${i + 1}`}
+                          placeholder={`Kolumn ${i + 1}`}
                           className="w-full bg-transparent px-2.5 py-1 font-semibold text-[#48554D] rounded-lg hover:bg-black/5 focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-[#8CA390] transition-colors"
                         />
                       </th>
@@ -580,7 +591,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
                             type="text"
                             value={cellVal}
                             onChange={(e) => handleUpdateCell(row.id, colIdx, e.target.value)}
-                            placeholder="Type here..."
+                            placeholder="Klicka för att skriva..."
                             className="w-full bg-transparent px-2.5 py-1.5 text-xs text-[#2D3748] rounded-lg border border-transparent hover:border-[#CCD4CA] focus:bg-white focus:border-[#8CA390] focus:outline-hidden focus:ring-1 focus:ring-[#8CA390] transition-colors placeholder-[#9CA9A0]"
                           />
                         </td>
@@ -590,7 +601,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
                           type="button"
                           onClick={() => handleRemoveTableRow(row.id)}
                           className="opacity-0 group-hover:opacity-100 p-1 text-[#99A69D] hover:text-[#B85E65] transition-all rounded-md"
-                          title="Delete row"
+                          title="Ta bort rad"
                         >
                           <X size={13} />
                         </button>
@@ -609,11 +620,11 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
                 className="flex items-center gap-1.5 text-xs text-[#526857] hover:text-[#253A2B] font-medium py-1 px-2 rounded-lg hover:bg-black/5 transition-colors"
               >
                 <Plus size={14} />
-                <span>Add row</span>
+                <span>Lägg till rad</span>
               </button>
 
               <span className="text-[11px] text-[#7B8B80]">
-                Simple fillable table · Click any cell or header to type
+                Enkel ifyllbar tabell · Klicka i valfri cell eller rubrik för att skriva
               </span>
             </div>
           </div>
@@ -625,8 +636,8 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
         {/* Completed items section with strike-through */}
         <div className="space-y-3">
           <div className="flex items-center justify-between text-xs text-[#6F7D73] font-medium pb-1">
-            <span>Completed milestones:</span>
-            <span>{completedItems.length} checked off</span>
+            <span>Avklarade uppgifter:</span>
+            <span>{completedItems.length} klara</span>
           </div>
 
           {completedItems.map((task) => (
@@ -638,7 +649,7 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
               <button
                 onClick={() => handleToggleTask(task)}
                 className="w-5 h-5 rounded-[4px] bg-[#333D37] border-2 border-[#333D37] flex items-center justify-center shrink-0 hover:opacity-90 transition-opacity"
-                aria-label={`Uncheck ${task.text}`}
+                aria-label={`Återaktivera ${task.text}`}
               >
                 <Check size={13} className="text-white" strokeWidth={3} />
               </button>
@@ -658,34 +669,41 @@ export const OpenListScreen: React.FC<OpenListScreenProps> = ({
 
           {completedItems.length === 0 && (
             <p className="text-xs text-[#8A978E] italic py-2">
-              No completed items yet. Take one gentle step at a time.
+              Inga avklarade uppgifter än. Ta ett lugnt steg i taget.
             </p>
           )}
 
-          {/* Bottom Right "Clear" Broom / Sweep button matching screenshot 2 */}
+          {/* Bottom Right "Rensa" with Broom Icon matching requirement 2 and screenshot 2 */}
           <div className="flex justify-end pt-5">
             <button
               onClick={handleResetRoutine}
               className="flex items-center gap-2 text-base font-medium text-[#2E3732] hover:text-[#18201B] active:scale-95 transition-all py-2 px-3.5 rounded-xl hover:bg-black/5"
-              title="Reset all completed tasks for tomorrow"
+              title="Återställ alla avklarade uppgifter inför imorgon"
             >
-              <span>Clear</span>
+              <span>Rensa</span>
+              {/* Authentic Upright Broom Icon matching Open_list_dcb2cb39.png */}
               <svg
-                width="20"
-                height="20"
+                width="19"
+                height="19"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.8"
+                strokeWidth="1.9"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className="shrink-0 text-[#2E3732]"
+                aria-hidden="true"
               >
-                <path d="M18 3l-6 6" />
-                <path d="M12 9l-2 2a4 4 0 0 0 5.66 5.66l2-2" />
-                <path d="M5 19l4-4" />
-                <path d="M3 21l2-2" />
-                <path d="M8 16l-3 3" />
-                <path d="M14 20l2-2" />
+                {/* Vertical handle */}
+                <path d="M12 2.5v8" />
+                {/* Broom collar / binding */}
+                <path d="M9 10.5h6l.8 2.5H8.2L9 10.5z" fill="currentColor" fillOpacity="0.15" />
+                {/* Flared broom bristles skirt with flat sweeping edge */}
+                <path d="M8.2 13.5l-2.6 7.6a.6.6 0 0 0 .57.7h11.66a.6.6 0 0 0 .57-.7L15.8 13.5" />
+                {/* Vertical bristle tines */}
+                <line x1="8.5" y1="16.5" x2="8.5" y2="21.5" />
+                <line x1="12" y1="14" x2="12" y2="21.5" />
+                <line x1="15.5" y1="16.5" x2="15.5" y2="21.5" />
               </svg>
             </button>
           </div>

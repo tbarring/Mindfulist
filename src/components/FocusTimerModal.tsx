@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Play, Pause, RotateCcw, Check, X, Bell, Volume2, VolumeX, Minimize2 } from 'lucide-react';
 import { playZenChime } from '../utils/audio';
 
@@ -23,7 +23,7 @@ export const FocusTimerModal: React.FC<FocusTimerModalProps> = ({
   const [secondsLeft, setSecondsLeft] = useState(defaultMinutes * 60);
   const [isActive, setIsActive] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
-  const [breathPhase, setBreathPhase] = useState<'inhale' | 'hold' | 'exhale'>('inhale');
+  const [breathPhase, setBreathPhase] = useState<'andas in' | 'håll' | 'andas ut'>('andas in');
 
   const totalSeconds = minutes * 60;
   const progress = Math.max(0, Math.min(1, 1 - secondsLeft / totalSeconds));
@@ -66,9 +66,9 @@ export const FocusTimerModal: React.FC<FocusTimerModalProps> = ({
     if (!isActive) return;
     const breathInterval = setInterval(() => {
       setBreathPhase((prev) => {
-        if (prev === 'inhale') return 'hold';
-        if (prev === 'hold') return 'exhale';
-        return 'inhale';
+        if (prev === 'andas in') return 'håll';
+        if (prev === 'håll') return 'andas ut';
+        return 'andas in';
       });
     }, 4000);
     return () => clearInterval(breathInterval);
@@ -119,7 +119,7 @@ export const FocusTimerModal: React.FC<FocusTimerModalProps> = ({
                 setSoundEnabled(!soundEnabled);
                 if (!soundEnabled) playZenChime('soft-chime');
               }}
-              title={soundEnabled ? 'Chime sound enabled' : 'Sound muted'}
+              title={soundEnabled ? 'Klangljud aktiverat' : 'Ljud avstängt'}
               className="p-1.5 rounded-full hover:bg-black/5 text-[#5F6D64] transition-colors"
             >
               {soundEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
@@ -127,7 +127,7 @@ export const FocusTimerModal: React.FC<FocusTimerModalProps> = ({
             <button
               onClick={onClose}
               className="p-1.5 rounded-full hover:bg-black/5 text-[#5F6D64] transition-colors"
-              aria-label="Close timer"
+              aria-label="Stäng timer"
             >
               <X size={18} />
             </button>
@@ -142,10 +142,10 @@ export const FocusTimerModal: React.FC<FocusTimerModalProps> = ({
           <p className="mt-0.5 text-xs text-[#7B8880]">
             {isActive ? (
               <span className="capitalize transition-opacity duration-700">
-                Gentle breath: <strong className="text-[#4E5C53]">{breathPhase}</strong>
+                Lugnt andetag: <strong className="text-[#4E5C53]">{breathPhase}</strong>
               </span>
             ) : (
-              'Calm mindful timer'
+              'Meditativ fokus-timer'
             )}
           </p>
         </div>
@@ -155,7 +155,7 @@ export const FocusTimerModal: React.FC<FocusTimerModalProps> = ({
           {/* Subtle breathing glow ring */}
           <div
             className={`absolute w-56 h-56 rounded-full bg-[#9CAD9E]/15 transition-transform duration-1000 ${
-              isActive && breathPhase === 'inhale'
+              isActive && breathPhase === 'andas in'
                 ? 'scale-110 opacity-70'
                 : 'scale-95 opacity-30'
             }`}
@@ -192,7 +192,7 @@ export const FocusTimerModal: React.FC<FocusTimerModalProps> = ({
               {formatTime(secondsLeft)}
             </span>
             <span className="text-[11px] font-medium text-[#7A8A7F] mt-1">
-              {secondsLeft === 0 ? 'Session Complete' : isActive ? 'In Flow' : 'Paused'}
+              {secondsLeft === 0 ? 'Passet slutfört' : isActive ? 'I fokus' : 'Pausad'}
             </span>
           </div>
         </div>
@@ -219,7 +219,7 @@ export const FocusTimerModal: React.FC<FocusTimerModalProps> = ({
           <button
             onClick={handleReset}
             className="p-3 rounded-full bg-[#E5EAE3] text-[#5A685F] hover:bg-[#DAE1D8] transition-colors"
-            title="Reset timer"
+            title="Starta om timern"
           >
             <RotateCcw size={18} />
           </button>
@@ -232,7 +232,7 @@ export const FocusTimerModal: React.FC<FocusTimerModalProps> = ({
               setIsActive(!isActive);
             }}
             className="flex items-center justify-center w-14 h-14 rounded-full bg-[#8CA390] text-white shadow-md hover:bg-[#7D9481] active:scale-95 transition-all"
-            aria-label={isActive ? 'Pause timer' : 'Start timer'}
+            aria-label={isActive ? 'Pausa timer' : 'Starta timer'}
           >
             {isActive ? <Pause size={24} /> : <Play size={24} className="ml-1" />}
           </button>
@@ -240,7 +240,7 @@ export const FocusTimerModal: React.FC<FocusTimerModalProps> = ({
           <button
             onClick={handleFinishAndComplete}
             className="p-3 rounded-full bg-[#8CA390]/15 text-[#5B7360] hover:bg-[#8CA390]/25 transition-colors"
-            title="Finish & check off task"
+            title="Klar och bocka av uppgift"
           >
             <Check size={20} />
           </button>
@@ -252,7 +252,7 @@ export const FocusTimerModal: React.FC<FocusTimerModalProps> = ({
             onClick={handleFinishAndComplete}
             className="text-xs font-medium text-[#5F7564] hover:text-[#425547] underline underline-offset-2 transition-colors"
           >
-            Mark task complete now
+            Markera uppgiften som klar nu
           </button>
         </div>
       </div>

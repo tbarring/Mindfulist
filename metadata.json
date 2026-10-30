@@ -1,6 +1,6 @@
 {
-  "name": "Mindfulist - Calm Routine & To Do Planner",
-  "description": "A serene, distraction-free to-do and routine app with task timers, natural earth palettes, and calm habit building.",
+  "name": "Mindfulist - Lugna rutiner & att-göra-listor",
+  "description": "En rogivande och distraktionsfri app för att-göra-listor och dagliga rutiner med timers, naturliga jordfärger och enkelt fokus.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

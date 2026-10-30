@@ -80,7 +80,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
     // Sorting
     result.sort((a, b) => {
       if (sortOption === 'title') {
-        return a.title.localeCompare(b.title);
+        return a.title.localeCompare(b.title, 'sv');
       }
       if (sortOption === 'remaining') {
         const aRem = a.items.filter((i) => !i.completed).length;
@@ -119,19 +119,19 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
   return (
     <div className="w-full pb-20 animate-fadeIn">
-      {/* Web Header Banner: Calm Greeting & Daily Focus */}
+      {/* Web Header Banner: Calm Greeting in Swedish */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-black/5">
         <div>
           <div className="flex items-center gap-2 text-xs font-medium text-[#65796B] mb-1">
-            <span>Friday, October 30, 2026</span>
+            <span>Fredag 30 oktober 2026</span>
             <span>·</span>
-            <span>Focus & Routines</span>
+            <span>Fokus & Rutiner</span>
           </div>
           <h1 className="text-2xl md:text-3xl font-medium tracking-tight text-[#2B352F]">
-            Good morning, Tiffany
+            God morgon, Petra
           </h1>
           <p className="text-sm text-[#6C7C71] mt-1">
-            Take a gentle breath. Here are your mindful routines for today.
+            Ta ett lugnt andetag. Här är dina medvetna rutiner för idag.
           </p>
         </div>
 
@@ -139,9 +139,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-[#F3F5F1] border border-[#DEE3DC] text-xs text-[#4E5E52] shadow-2xs">
             <span className="w-2 h-2 rounded-full bg-[#8CA390]" />
-            <span>{lists.length} Active Lists</span>
+            <span>{lists.length} aktiva listor</span>
             <span className="text-[#99A69D]">·</span>
-            <span className="font-semibold text-[#2D3748]">{completedTasks}/{totalTasks} Tasks Done</span>
+            <span className="font-semibold text-[#2D3748]">{completedTasks}/{totalTasks} klara</span>
           </div>
 
           <button
@@ -149,12 +149,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#8CA390] text-white text-xs font-medium hover:bg-[#788F7C] active:scale-95 transition-all shadow-xs"
           >
             <Plus size={16} strokeWidth={2.2} />
-            <span>New List</span>
+            <span>Ny lista</span>
           </button>
         </div>
       </div>
 
-      {/* Search & Filter Toolbar matching the mockup style but scaled for web */}
+      {/* Search & Filter Toolbar matching the mockup style */}
       <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-6">
         {/* Search Input Bar */}
         <div className="relative flex-1 max-w-xl">
@@ -163,8 +163,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             <button
               onClick={onOpenAccount}
               className="w-7 h-7 rounded-full flex items-center justify-center text-[#2D3748] hover:bg-black/5 transition-colors"
-              title="Open Account, Settings & Help"
-              aria-label="Account and Settings"
+              title="Öppna konto, inställningar & hjälp"
+              aria-label="Konto och inställningar"
             >
               <svg
                 width="20"
@@ -182,18 +182,18 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               </svg>
             </button>
 
-            {/* Search input field */}
+            {/* Search input field in Swedish */}
             <div className="flex-1 px-3">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search your notes and routine tasks..."
+                placeholder="Sök i dina anteckningar och uppgifter..."
                 className="w-full bg-transparent text-sm text-[#2D3748] placeholder-[#5C6A60] focus:outline-hidden"
               />
             </div>
 
-            {/* Right Action Icons: Layout toggle (side-by-side vs one list at a time) and Sort icon */}
+            {/* Right Action Icons: Layout toggle (4 squares vs 2 horizontal rectangles) and Sort icon */}
             <div className="flex items-center gap-1.5 text-[#2D3748]">
               <button
                 onClick={handleToggleLayout}
@@ -204,13 +204,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 }`}
                 title={
                   isSingleColumn
-                    ? 'Switch layout to side-by-side view'
-                    : 'Switch layout to one list at a time (stacked)'
+                    ? 'Växla till sida-vid-sida-vy'
+                    : 'Växla till en lista i taget (staplad)'
                 }
-                aria-label="Toggle lists layout"
+                aria-label="Växla listlayout"
               >
                 {isSingleColumn ? (
-                  /* Two horizontal rectangles (representing one list at a time / stacked view) */
+                  /* Two horizontal rectangles (representing stacked one-list-at-a-time view) */
                   <svg
                     width="18"
                     height="18"
@@ -225,7 +225,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                     <rect x="3" y="14" width="18" height="5" rx="1.5" />
                   </svg>
                 ) : (
-                  /* Four squares (representing side-by-side / grid view) */
+                  /* Four squares (representing side-by-side grid view) */
                   <svg
                     width="18"
                     height="18"
@@ -248,8 +248,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 <button
                   onClick={() => setShowSortDropdown(!showSortDropdown)}
                   className="p-1 rounded-full hover:bg-black/5 transition-colors"
-                  title="Sort notes"
-                  aria-label="Sort options"
+                  title="Sortera rutiner"
+                  aria-label="Sorteringsalternativ"
                 >
                   <svg
                     width="18"
@@ -268,11 +268,11 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                   </svg>
                 </button>
 
-                {/* Sort Dropdown */}
+                {/* Sort Dropdown in Swedish */}
                 {showSortDropdown && (
-                  <div className="absolute right-0 mt-2 w-48 rounded-2xl bg-[#F5F7F3] p-2 shadow-lg border border-[#CCD4CA] z-30 text-xs animate-fadeIn">
+                  <div className="absolute right-0 mt-2 w-52 rounded-2xl bg-[#F5F7F3] p-2 shadow-lg border border-[#CCD4CA] z-30 text-xs animate-fadeIn">
                     <div className="px-2 py-1 font-semibold text-[#66776C] uppercase tracking-wider text-[10px]">
-                      Sort routines by:
+                      Sortera rutiner efter:
                     </div>
                     <button
                       onClick={() => {
@@ -285,7 +285,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                           : 'text-[#3D4940] hover:bg-black/5'
                       }`}
                     >
-                      Creation Date
+                      Skapad datum
                     </button>
                     <button
                       onClick={() => {
@@ -298,7 +298,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                           : 'text-[#3D4940] hover:bg-black/5'
                       }`}
                     >
-                      Alphabetical (Title)
+                      Alfabetisk ordning (titel)
                     </button>
                     <button
                       onClick={() => {
@@ -311,7 +311,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                           : 'text-[#3D4940] hover:bg-black/5'
                       }`}
                     >
-                      Remaining tasks count
+                      Kvarvarande uppgifter
                     </button>
                   </div>
                 )}
@@ -320,14 +320,14 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </div>
         </div>
 
-        {/* Category Filters (Clean unboxed tabs) */}
+        {/* Category Filters in Swedish */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs text-[#5C6B61]">
           {[
-            { id: 'all', label: 'All Routines' },
-            { id: 'routine', label: 'Routines' },
-            { id: 'school', label: 'School' },
-            { id: 'work', label: 'Work' },
-            { id: 'home', label: 'Home' },
+            { id: 'all', label: 'Alla rutiner' },
+            { id: 'routine', label: 'Rutiner' },
+            { id: 'school', label: 'Skola' },
+            { id: 'work', label: 'Jobb' },
+            { id: 'home', label: 'Hemma' },
           ].map((filter) => (
             <button
               key={filter.id}
@@ -379,7 +379,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                   </div>
                   <div className="flex items-center gap-2 text-xs font-normal text-[#445149]">
                     {!list.isPrivate && (
-                      <span title="Shared routine" className="inline-flex">
+                      <span title="Delad rutin" className="inline-flex">
                         <Users size={13} className="text-[#687C6F]" />
                       </span>
                     )}
@@ -410,7 +410,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                             ? 'bg-[#333D37] border-[#333D37]'
                             : 'border-[#333D37] hover:border-[#8CA390]'
                         }`}
-                        aria-label={`Toggle ${task.text}`}
+                        aria-label={`Bocka av ${task.text}`}
                       >
                         {task.completed && (
                           <Check size={13} className="text-white" strokeWidth={3} />
@@ -430,7 +430,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
                   {list.items.length > 5 && (
                     <div className="pt-1 text-xs text-[#718077] font-medium pl-6">
-                      +{list.items.length - 5} more routine items...
+                      +{list.items.length - 5} fler punkter...
                     </div>
                   )}
                 </div>
@@ -439,10 +439,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               {/* Card Footer: Status & Open Button */}
               <div className="mt-5 pt-3 border-t border-[#E1E6DF] flex items-center justify-between text-xs text-[#627367]">
                 <span>
-                  {activeCount === 0 ? 'All finished today ✨' : `${activeCount} pending tasks`}
+                  {activeCount === 0 ? 'Alla klara idag ✨' : `${activeCount} uppgifter kvar`}
                 </span>
                 <span className="flex items-center gap-1 font-medium text-[#465E4E] group-hover:translate-x-1 transition-transform">
-                  <span>Open routine</span>
+                  <span>Öppna rutin</span>
                   <ChevronRight size={14} />
                 </span>
               </div>
@@ -450,7 +450,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           );
         })}
 
-        {/* Create New List Card (Inviting Web Action Tile) */}
+        {/* Create New List Card in Swedish */}
         <div
           onClick={onOpenCreateList}
           className="rounded-[32px] p-6 border-4 border-dashed border-[#8CA390]/50 hover:border-[#8CA390] bg-[#F3F5F1]/60 hover:bg-[#F3F5F1] cursor-pointer flex flex-col items-center justify-center text-center gap-3 min-h-[260px] transition-all group hover:-translate-y-1 shadow-2xs"
@@ -460,10 +460,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </div>
           <div>
             <h3 className="text-base font-semibold text-[#2D3748]">
-              Create a New List
+              Skapa en ny lista
             </h3>
-            <p className="text-xs text-[#6F7D74] mt-1 max-w-[200px]">
-              Start a fresh routine or customize from mindful templates.
+            <p className="text-xs text-[#6F7D74] mt-1 max-w-[210px]">
+              Starta en ny rutin eller anpassa utifrån medvetna mallar.
             </p>
           </div>
         </div>
@@ -472,7 +472,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       {displayedLists.length === 0 && (
         <div className="text-center py-16 px-4 rounded-3xl bg-white/50 border border-[#D5DCD3] max-w-md mx-auto mt-6">
           <p className="text-sm text-[#5C6D62]">
-            No routines found matching "{searchQuery}".
+            Inga rutiner hittades för "{searchQuery}".
           </p>
           <button
             onClick={() => {
@@ -481,7 +481,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             }}
             className="mt-3 px-4 py-1.5 rounded-xl bg-[#8CA390] text-white text-xs font-medium"
           >
-            Clear filters
+            Rensa filter
           </button>
         </div>
       )}

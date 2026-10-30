@@ -106,19 +106,19 @@ export default function App() {
 
   return (
     <div className={`min-h-screen ${canvasBgClass} text-[#2D3748] transition-colors duration-500 font-sans flex flex-col`}>
-      {/* Web Application Top Navigation Bar conforming to Top Bar Contract */}
+      {/* Web Application Top Navigation Bar in Swedish */}
       <header className="sticky top-0 z-40 bg-white/70 backdrop-blur-md border-b border-[#CCD4CA] px-6 lg:px-12 py-3.5 transition-all">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-8">
           {/* Zone 1: Brand Wordmark */}
           <button
             onClick={() => setCurrentScreen('home')}
             className="flex items-center gap-2 hover:opacity-90 transition-opacity focus:outline-hidden whitespace-nowrap shrink-0"
-            aria-label="Mindfulist Home"
+            aria-label="Mindfulist Hem"
           >
             <MindfulistLogo size="md" />
           </button>
 
-          {/* Zone 2: Navigation Links */}
+          {/* Zone 2: Navigation Links in Swedish */}
           <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-[#4D5E53]">
             <button
               onClick={() => setCurrentScreen('home')}
@@ -128,7 +128,7 @@ export default function App() {
                   : ''
               }`}
             >
-              All Routines
+              Alla rutiner
             </button>
             <button
               onClick={() => {
@@ -141,7 +141,7 @@ export default function App() {
                   : ''
               }`}
             >
-              Active Routine
+              Aktiv rutin
             </button>
             <button
               onClick={() => setCurrentScreen('create')}
@@ -151,7 +151,7 @@ export default function App() {
                   : ''
               }`}
             >
-              Templates & Create
+              Mallar & Skapa
             </button>
             <button
               onClick={() => setCurrentScreen('account')}
@@ -161,20 +161,20 @@ export default function App() {
                   : ''
               }`}
             >
-              Settings & Guidance
+              Inställningar & Hjälp
             </button>
           </nav>
 
-          {/* Zone 3: Primary Action & Profile Lockup */}
+          {/* Zone 3: Primary Action & Profile Lockup (Petra) */}
           <div className="flex items-center gap-3.5 shrink-0">
             {/* Quick Chime Preview Button */}
             <button
               onClick={() => playZenChime(settings.soundType)}
-              title="Play calming singing bowl chime"
+              title="Spela rogivande klangljud"
               className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/60 hover:bg-white text-xs text-[#526356] border border-[#CCD4CA] transition-colors shadow-2xs"
             >
               <Volume2 size={14} className="text-[#657A6B]" />
-              <span>Chime</span>
+              <span>Klang</span>
             </button>
 
             {/* + New List Primary CTA */}
@@ -183,23 +183,23 @@ export default function App() {
               className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#8CA390] text-white text-xs font-medium hover:bg-[#788E7C] active:scale-95 transition-all shadow-xs whitespace-nowrap"
             >
               <Plus size={16} strokeWidth={2.2} />
-              <span>New List</span>
+              <span>Ny lista</span>
             </button>
 
-            {/* User Profile avatar pill */}
+            {/* User Profile avatar pill: Petra (no last name) */}
             <button
               onClick={() => setCurrentScreen('account')}
               className="flex items-center gap-2 pl-2 pr-3 py-1 rounded-full bg-white/70 hover:bg-white border border-[#CCD4CA] text-xs transition-colors shadow-2xs"
-              title="Account, Settings & Help"
+              title="Konto, inställningar & hjälp"
             >
               <div className="w-6 h-6 rounded-full bg-[#8CA390] text-white flex items-center justify-center text-[10px] font-semibold">
                 {settings.avatarSeed}
               </div>
               <span className="hidden lg:inline text-[#3F4D43] font-medium">
-                {settings.name.split(' ')[0]}
+                {settings.name}
               </span>
               <span className="text-[11px] text-[#4E6755] font-semibold">
-                🌱 {settings.streakDays}d
+                🌱 {settings.streakDays} d
               </span>
             </button>
           </div>
@@ -208,13 +208,13 @@ export default function App() {
 
       {/* Main Web Workspace Area */}
       <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-10 py-8 flex-1 flex flex-col lg:flex-row gap-8">
-        {/* Left Navigation Rail (Desktop Only) for Rapid Switching */}
+        {/* Left Navigation Rail (Desktop Only) in Swedish */}
         <aside className="hidden xl:flex flex-col w-64 shrink-0 space-y-6">
           {/* Quick List Navigator */}
           <div className="p-5 rounded-3xl bg-white/60 border border-[#CCD4CA] shadow-2xs">
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-semibold text-[#5A6E60] uppercase tracking-wider">
-                My Routines
+                Mina rutiner
               </span>
               <span className="text-xs text-[#7A8A7F] tabular-nums">
                 {lists.length}
@@ -261,18 +261,18 @@ export default function App() {
               className="mt-4 w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-white/80 hover:bg-white text-xs font-medium text-[#465E4E] border border-dashed border-[#CCD4CA] transition-colors"
             >
               <Plus size={14} />
-              <span>Add routine list</span>
+              <span>Lägg till rutin</span>
             </button>
           </div>
 
-          {/* Serene Mindfulness Card */}
+          {/* Serene Mindfulness Card in Swedish */}
           <div className="p-5 rounded-3xl bg-[#F3F5F1] border-2 border-[#9CAD9E]/50 shadow-2xs text-xs text-[#4F5E54] space-y-2">
             <div className="flex items-center gap-2 font-semibold text-[#3A4A3E]">
               <Sparkles size={15} className="text-[#688A72]" />
-              <span>Mindful Reflection</span>
+              <span>Medveten reflektion</span>
             </div>
             <p className="leading-relaxed text-[#607065]">
-              "Focus not on finishing everything at once, but on giving your peaceful presence to this single routine step."
+              "Fokusera inte på att hinna allt på en gång, utan ge din lugna närvaro till just detta steg."
             </p>
           </div>
         </aside>
@@ -343,11 +343,11 @@ export default function App() {
         />
       )}
 
-      {/* Calm Web Footer */}
+      {/* Calm Web Footer in Swedish */}
       <footer className="mt-auto border-t border-[#CCD4CA] bg-white/40 py-4 px-6 text-center text-xs text-[#718076]">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>Mindfulist · Serene Routine & Task Planner</span>
-          <span>Designed with nature-inspired clarity for calm daily focus.</span>
+          <span>Mindfulist · Lugn och medveten rutinplanerare</span>
+          <span>Skapad med naturinspirerad harmoni för rofyllt fokus i vardagen.</span>
         </div>
       </footer>
     </div>

@@ -64,7 +64,7 @@ export const ShareListModal: React.FC<ShareListModalProps> = ({
           <div className="flex items-center gap-2">
             <Users size={18} className="text-[#657A6B]" />
             <h3 className="text-base font-semibold text-[#2D3748]">
-              Share & Privacy
+              Dela & Sekretess
             </h3>
           </div>
           <button
@@ -76,7 +76,7 @@ export const ShareListModal: React.FC<ShareListModalProps> = ({
         </div>
 
         <p className="mt-3 text-xs text-[#6F7C74]">
-          Control who can view and complete routine items in <strong>{list.title}</strong>.
+          Bestäm vem som kan se och bocka av rutiner i <strong>{list.title}</strong>.
         </p>
 
         {/* Privacy Selector */}
@@ -90,7 +90,7 @@ export const ShareListModal: React.FC<ShareListModalProps> = ({
             }`}
           >
             <Lock size={14} />
-            <span>Private</span>
+            <span>Privat</span>
           </button>
 
           <button
@@ -102,7 +102,7 @@ export const ShareListModal: React.FC<ShareListModalProps> = ({
             }`}
           >
             <Users size={14} />
-            <span>Shared Routine</span>
+            <span>Delad rutin</span>
           </button>
         </div>
 
@@ -110,12 +110,12 @@ export const ShareListModal: React.FC<ShareListModalProps> = ({
         {!list.isPrivate && (
           <div className="mt-4">
             <label className="block text-xs font-medium text-[#526156] mb-1.5">
-              Invite friend or study partner
+              Bjud in vän eller studiepartner
             </label>
             <form onSubmit={handleAddCollaborator} className="flex gap-1.5">
               <input
                 type="email"
-                placeholder="partner@example.com"
+                placeholder="partner@exempel.se"
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
                 className="flex-1 px-3 py-2 text-xs rounded-xl bg-white border border-[#D5DCD4] focus:outline-hidden focus:border-[#8FA491]"
@@ -125,14 +125,14 @@ export const ShareListModal: React.FC<ShareListModalProps> = ({
                 className="px-3 py-2 bg-[#8CA390] text-white rounded-xl text-xs font-medium hover:bg-[#788F7C] transition-colors flex items-center gap-1"
               >
                 <UserPlus size={14} />
-                <span>Add</span>
+                <span>Bjud in</span>
               </button>
             </form>
 
             {/* List of collaborators */}
             {list.sharedWith && list.sharedWith.length > 0 && (
               <div className="mt-3 space-y-1.5">
-                <span className="text-[11px] font-medium text-[#7A887F]">Collaborators:</span>
+                <span className="text-[11px] font-medium text-[#7A887F]">Medarbetare:</span>
                 {list.sharedWith.map((email) => (
                   <div
                     key={email}
@@ -143,7 +143,7 @@ export const ShareListModal: React.FC<ShareListModalProps> = ({
                       onClick={() => handleRemoveCollaborator(email)}
                       className="text-[#994D53] hover:text-[#7A363B] text-[11px] font-medium ml-2"
                     >
-                      Remove
+                      Ta bort
                     </button>
                   </div>
                 ))}
@@ -159,7 +159,7 @@ export const ShareListModal: React.FC<ShareListModalProps> = ({
             className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#E4EAE2] text-[#47574B] text-xs font-medium hover:bg-[#D9E1D7] transition-colors"
           >
             {copied ? <Check size={14} className="text-emerald-600" /> : <Link2 size={14} />}
-            <span>{copied ? 'Link copied to clipboard!' : 'Copy routine sharing link'}</span>
+            <span>{copied ? 'Länk kopierad till urklipp!' : 'Kopiera delningslänk för rutinen'}</span>
           </button>
         </div>
       </div>

@@ -25,12 +25,12 @@ interface CreateListScreenProps {
 }
 
 const CATEGORIES: { id: ListCategory; label: string; icon: ListIcon }[] = [
-  { id: 'routine', label: 'Routine', icon: 'sun' },
-  { id: 'home', label: 'Home', icon: 'home' },
-  { id: 'school', label: 'School', icon: 'school' },
-  { id: 'work', label: 'Work', icon: 'work' },
-  { id: 'health', label: 'Health', icon: 'heart' },
-  { id: 'creative', label: 'Creative', icon: 'sparkles' },
+  { id: 'routine', label: 'Rutin', icon: 'sun' },
+  { id: 'home', label: 'Hemma', icon: 'home' },
+  { id: 'school', label: 'Skola', icon: 'school' },
+  { id: 'work', label: 'Jobb', icon: 'work' },
+  { id: 'health', label: 'Hälsa', icon: 'heart' },
+  { id: 'creative', label: 'Kreativt', icon: 'sparkles' },
 ];
 
 const ICONS: ListIcon[] = ['home', 'school', 'work', 'sun', 'moon', 'heart', 'book', 'dumbbell', 'sparkles'];
@@ -46,13 +46,13 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
   const [isPrivate, setIsPrivate] = useState(true);
   const [isDailyRoutine, setIsDailyRoutine] = useState(true);
   const [includeTable, setIncludeTable] = useState(false);
-  const [dateStr, setDateStr] = useState('Oct 30/26');
+  const [dateStr, setDateStr] = useState('30 okt / 26');
 
-  // Initial task items list
+  // Initial task items list in Swedish
   const [tasks, setTasks] = useState<string[]>([
-    'Quiet 5 min breathing',
-    'Hydrate and herbal tea',
-    'Set 3 calm intentions for the day',
+    '5 minuters lugn andning',
+    'Drick ett stort glas vatten eller te',
+    'Sätt dagens 3 prioriteringar',
   ]);
   const [taskInput, setTaskInput] = useState('');
 
@@ -106,7 +106,7 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
       items: createdItems,
       table: includeTable
         ? {
-            headers: ['Item / Step', 'Details', 'Notes'],
+            headers: ['Uppgift / Steg', 'Detaljer', 'Anteckningar'],
             rows: [
               { id: `r-${Date.now()}-1`, cells: ['', '', ''], done: false },
               { id: `r-${Date.now()}-2`, cells: ['', '', ''], done: false },
@@ -127,11 +127,11 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
           className="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/80 hover:bg-white text-[#3A4540] shadow-2xs border border-[#CCD4CA] transition-all active:scale-95 text-xs font-medium"
         >
           <ChevronLeft size={18} strokeWidth={2.2} />
-          <span>Back to All Routines</span>
+          <span>Tillbaka till alla rutiner</span>
         </button>
 
         <span className="text-xs text-[#718175]">
-          New List & Routine Creator
+          Skapa ny rutin & lista
         </span>
       </div>
 
@@ -147,10 +147,10 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
       >
         <div className="pb-5 border-b border-[#E1E5DF]">
           <h1 className="text-2xl md:text-3xl font-medium tracking-tight text-[#2A332E]">
-            Create a New List
+            Skapa en ny lista
           </h1>
           <p className="text-sm text-[#6B7970] mt-1">
-            Build a calming daily habit, study sprint, or work project with distraction-free clarity.
+            Bygg en rogivande daglig rutin, studiesession eller ett arbetsprojekt med distraktionsfri klarhet.
           </p>
         </div>
 
@@ -158,9 +158,9 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
         <div className="mt-6">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-semibold text-[#5A6E60] uppercase tracking-wider">
-              Start from a mindful template:
+              Börja från en medveten mall:
             </span>
-            <span className="text-[11px] text-[#7B8B80]">Click any template to auto-fill</span>
+            <span className="text-[11px] text-[#7B8B80]">Klicka på en mall för att fylla i automatiskt</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -186,12 +186,12 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
         {/* List Title Input */}
         <div className="mt-6 pt-5 border-t border-[#E1E5DF]">
           <label className="block text-xs font-medium text-[#46544B] mb-2">
-            List or Routine Name
+            Listans eller rutinens namn
           </label>
           <input
             type="text"
             required
-            placeholder="e.g. Morning routine, Study block, Evening reset, Gym & Wellness"
+            placeholder="t.ex. Morgonrutin, Studiepass, Kvällsrutin, Träning & Välmående"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="w-full px-4 py-3 text-base bg-white rounded-2xl border border-[#CCD3CB] focus:outline-hidden focus:border-[#8CA390] text-[#2D3748] shadow-2xs"
@@ -202,7 +202,7 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
         <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
             <label className="block text-xs font-medium text-[#46544B] mb-2">
-              Category
+              Kategori
             </label>
             <select
               value={category}
@@ -224,13 +224,13 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
 
           <div>
             <label className="block text-xs font-medium text-[#46544B] mb-2">
-              Date Label
+              Datumetikett
             </label>
             <input
               type="text"
               value={dateStr}
               onChange={(e) => setDateStr(e.target.value)}
-              placeholder="Oct 30/26"
+              placeholder="30 okt / 26"
               className="w-full px-3.5 py-2.5 text-sm bg-white rounded-2xl border border-[#CCD3CB] focus:outline-hidden text-[#2D3748] shadow-2xs"
             />
           </div>
@@ -239,7 +239,7 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
         {/* Icon Selection */}
         <div className="mt-5">
           <label className="block text-xs font-medium text-[#46544B] mb-2">
-            Choose Icon
+            Välj ikon
           </label>
           <div className="flex items-center gap-2 overflow-x-auto py-1">
             {ICONS.map((iconName) => (
@@ -262,7 +262,7 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
         {/* Nature Palette Theme Picker */}
         <div className="mt-5">
           <label className="block text-xs font-medium text-[#46544B] mb-2">
-            Border & Accent Color
+            Kant- och accentfärg
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
             {THEMES.map((theme) => (
@@ -286,15 +286,15 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
           </div>
         </div>
 
-        {/* Privacy & Routine Settings */}
+        {/* Privacy & Routine Settings in Swedish */}
         <div className="mt-6 pt-5 border-t border-[#E1E5DF] space-y-4">
           <div className="flex items-center justify-between p-3.5 bg-white/70 rounded-2xl border border-[#DEE3DC]">
             <div>
               <span className="text-sm font-medium text-[#2E3731]">
-                Daily recurring routine
+                Daglig återkommande rutin
               </span>
               <p className="text-xs text-[#718076] mt-0.5">
-                Enables the "Clear 🧹" button to reset tasks for the next day.
+                Aktiverar knappen "Rensa" för att enkelt nollställa uppgifterna inför nästa dag.
               </p>
             </div>
             <button
@@ -315,10 +315,10 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
           <div className="flex items-center justify-between p-3.5 bg-white/70 rounded-2xl border border-[#DEE3DC]">
             <div>
               <span className="text-sm font-medium text-[#2E3731]">
-                List privacy & sharing
+                Sekretess och delning
               </span>
               <p className="text-xs text-[#718076] mt-0.5">
-                {isPrivate ? 'Only visible to you on this device' : 'Can invite routine partners via email'}
+                {isPrivate ? 'Endast synlig för dig på denna enhet' : 'Kan bjuda in rutinkamrater via e-post'}
               </p>
             </div>
             <button
@@ -327,17 +327,17 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
               className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white text-xs font-medium text-[#3E4C42] border border-[#CCD3CB] shadow-2xs"
             >
               {isPrivate ? <Lock size={14} /> : <Users size={14} />}
-              <span>{isPrivate ? 'Private' : 'Shared Routine'}</span>
+              <span>{isPrivate ? 'Privat' : 'Delad rutin'}</span>
             </button>
           </div>
 
           <div className="flex items-center justify-between p-3.5 bg-white/70 rounded-2xl border border-[#DEE3DC]">
             <div>
               <span className="text-sm font-medium text-[#2E3731]">
-                Include a simple fillable table
+                Inkludera en enkel tabell
               </span>
               <p className="text-xs text-[#718076] mt-0.5">
-                Adds an empty customizable table with editable columns and rows.
+                Lägger till en tom anpassningsbar tabell med redigerbara kolumner och rader.
               </p>
             </div>
             <button
@@ -356,13 +356,13 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
           </div>
         </div>
 
-        {/* Initial Tasks Section */}
+        {/* Initial Tasks Section in Swedish */}
         <div className="mt-6 pt-5 border-t border-[#E1E5DF]">
           <div className="flex items-center justify-between mb-2.5">
             <label className="text-xs font-semibold text-[#5A6E60] uppercase tracking-wider">
-              Initial Tasks & Routine Steps ({tasks.length})
+              Inledande uppgifter & rutinsteg ({tasks.length})
             </label>
-            <span className="text-[11px] text-[#718076]">Edit or remove steps</span>
+            <span className="text-[11px] text-[#718076]">Redigera eller ta bort steg</span>
           </div>
 
           <div className="space-y-2 mb-4">
@@ -386,7 +386,7 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
           <div className="flex gap-2">
             <input
               type="text"
-              placeholder="Add another routine step..."
+              placeholder="Lägg till ytterligare ett rutinsteg..."
               value={taskInput}
               onChange={(e) => setTaskInput(e.target.value)}
               className="flex-1 px-3.5 py-2.5 text-sm bg-white rounded-xl border border-[#CCD3CB] focus:outline-hidden text-[#2D3748]"
@@ -396,7 +396,7 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
               onClick={handleAddTask}
               className="px-4 py-2.5 bg-[#8CA390] text-white rounded-xl text-xs font-medium hover:bg-[#788E7C] shadow-2xs"
             >
-              Add
+              Lägg till
             </button>
           </div>
         </div>
@@ -408,13 +408,13 @@ export const CreateListScreen: React.FC<CreateListScreenProps> = ({
             onClick={onBack}
             className="px-5 py-3 rounded-2xl bg-[#E1E5DF] text-xs font-medium text-[#4A5568] hover:bg-[#D5DCD3] transition-colors"
           >
-            Cancel
+            Avbryt
           </button>
           <button
             type="submit"
             className="py-3 px-6 rounded-2xl bg-[#8CA390] text-white font-medium text-sm flex items-center justify-center gap-2 hover:bg-[#79917D] active:scale-[0.98] shadow-sm transition-all"
           >
-            <span>Create Mindful List</span>
+            <span>Skapa medveten lista</span>
             <ArrowRight size={16} />
           </button>
         </div>
